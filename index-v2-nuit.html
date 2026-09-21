@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DJIGUENE Magazine — Le magazine de la femme africaine moderne</title>
+<meta name="description" content="DJIGUENE Magazine célèbre le leadership, la mode, la culture et l'entrepreneuriat des femmes africaines. Découvrez l'édition du mois, nos portraits et notre bibliothèque.">
+<meta property="og:title" content="DJIGUENE Magazine — L'Afrique s'écrit aussi au féminin">
+<meta property="og:description" content="Mode, leadership, culture et entrepreneuriat : le magazine premium qui célèbre l'excellence des femmes africaines.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/social-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2a1220">
+<link rel="icon" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   DJIGUENE MAGAZINE — V2.0
+   Design tokens dérivés du logo officiel et de la charte Instagram
+   ============================================================ */
+:root{
+  --noir:        #0b0a0d;
+  --noir-soft:   #16121a;
+  --bordeaux:        #4a1d3a;
+  --bordeaux-light:  #6e2f56;
+  --bordeaux-deep:   #200d19;
+  --or:          #d9822f;
+  --or-clair:    #f3c98a;
+  --or-deep:     #a35738;
+  --ivoire:      #f6efe4;
+  --blanc:       #ffffff;
+  --gris:        #ab9d97;
+
+  --font-display: 'Bodoni Moda', Georgia, serif;
+  --font-body: 'Manrope', -apple-system, sans-serif;
+
+  --header-h: 84px;
+  --container: 1240px;
+  --ease: cubic-bezier(.22,.68,.32,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--noir);
+  color:var(--ivoire);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; margin:0; padding:0; }
+h1,h2,h3,h4{ margin:0; font-family:var(--font-display); font-weight:500; }
+p{ margin:0; }
+button{ font-family:inherit; cursor:pointer; }
+
+.container{ max-width:var(--container); margin:0 auto; padding:0 32px; }
+
+:focus-visible{ outline:2px solid var(--or); outline-offset:3px; }
+
+.skip-link{
+  position:absolute; left:12px; top:-60px; z-index:1000;
+  background:var(--or); color:var(--noir); padding:10px 18px;
+  border-radius:4px; font-weight:700; transition:top .25s var(--ease);
+}
+.skip-link:focus{ top:12px; }
+
+/* -------- eyebrow / labels -------- */
+.eyebrow{
+  display:inline-flex; align-items:center; gap:12px;
+  font-size:12.5px; letter-spacing:.22em; text-transform:uppercase;
+  font-weight:700; color:var(--or);
+}
+.eyebrow::before{ content:""; width:28px; height:1px; background:var(--or); display:inline-block; }
+
+/* -------- buttons -------- */
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:15px 30px; font-size:13.5px; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase;
+  border-radius:2px; border:1px solid transparent;
+  transition:all .35s var(--ease); white-space:nowrap;
+}
+.btn-solid{ background:var(--or); color:var(--noir); }
+.btn-solid:hover{ background:var(--or-clair); transform:translateY(-2px); }
+.btn-ghost{ border-color:rgba(246,239,228,.4); color:var(--ivoire); }
+.btn-ghost:hover{ border-color:var(--or); color:var(--or-clair); transform:translateY(-2px); }
+.btn-line{ border-bottom:1px solid currentColor; padding:6px 0; border-radius:0; letter-spacing:.05em; }
+
+/* ============ PRELOADER ============ */
+#preloader{
+  position:fixed; inset:0; z-index:9999;
+  background:var(--noir);
+  display:flex; align-items:center; justify-content:center;
+  transition:opacity .7s var(--ease), visibility .7s var(--ease);
+}
+#preloader img{ width:min(230px,58vw); height:auto; animation:pulse 1.6s ease-in-out infinite; }
+#preloader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+@keyframes pulse{ 0%,100%{ transform:scale(1); opacity:.7;} 50%{ transform:scale(1.08); opacity:1;} }
+
+/* ============ HEADER ============ */
+#site-header{
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  height:var(--header-h);
+  display:flex; align-items:center;
+  transition:background .4s var(--ease), height .4s var(--ease), box-shadow .4s var(--ease);
+}
+#site-header.scrolled{
+  height:68px;
+  background:rgba(11,10,13,.82);
+  backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 rgba(217,130,47,.18);
+}
+.header-inner{ width:100%; display:flex; align-items:center; justify-content:space-between; }
+.brand{ display:flex; align-items:center; gap:12px; }
+.brand img{ height:50px; width:auto; display:block; transition:height .4s var(--ease); }
+#site-header.scrolled .brand img{ height:40px; }
+.brand-word{ line-height:1.05; }
+.brand-word .b1{ font-family:var(--font-display); font-style:italic; font-size:19px; color:var(--ivoire); }
+.brand-word .b2{ font-size:9.5px; letter-spacing:.3em; color:var(--or); font-weight:700; }
+
+.nav-links{ display:flex; align-items:center; gap:38px; }
+.nav-links a{
+  font-size:13px; font-weight:600; letter-spacing:.04em;
+  position:relative; padding:4px 0;
+}
+.nav-links a::after{
+  content:""; position:absolute; left:0; bottom:-2px; width:0; height:1px;
+  background:var(--or); transition:width .35s var(--ease);
+}
+.nav-links a:hover::after{ width:100%; }
+.nav-cta{ margin-left:6px; }
+
+.burger{
+  display:none; flex-direction:column; gap:5px; background:none; border:none; padding:8px; z-index:600;
+}
+.burger span{ width:24px; height:2px; background:var(--ivoire); transition:.3s var(--ease); }
+.burger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.burger.open span:nth-child(2){ opacity:0; }
+.burger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+/* ============ HERO ============ */
+#hero{
+  position:relative; min-height:100svh; overflow:hidden;
+  display:flex; align-items:center;
+  background:
+    radial-gradient(ellipse 90% 70% at 25% 15%, var(--bordeaux-light) 0%, transparent 55%),
+    radial-gradient(ellipse 120% 90% at 80% 100%, var(--bordeaux) 0%, transparent 60%),
+    linear-gradient(160deg, var(--bordeaux-deep) 0%, var(--noir) 78%);
+}
+.hero-grain{
+  position:absolute; inset:0; opacity:.35; mix-blend-mode:overlay; pointer-events:none;
+}
+.hero-inner{
+  position:relative; z-index:2; width:100%;
+  display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:20px;
+  padding-top:var(--header-h);
+}
+.hero-copy{ max-width:560px; }
+.hero-copy .eyebrow{ margin-bottom:22px; }
+.hero-title{
+  font-size:clamp(2.6rem, 5.4vw, 4.6rem);
+  font-style:italic; line-height:1.06; color:var(--ivoire);
+  margin-bottom:26px;
+}
+.hero-title .accent{ color:var(--or-clair); position:relative; white-space:nowrap; }
+.hero-sub{
+  font-size:17px; color:var(--gris); max-width:460px; margin-bottom:38px; line-height:1.7;
+}
+.hero-ctas{ display:flex; flex-wrap:wrap; gap:16px; margin-bottom:44px; }
+.hero-links{ display:flex; gap:28px; flex-wrap:wrap; }
+.hero-links a{ font-size:12.5px; font-weight:700; letter-spacing:.05em; color:var(--gris); border-bottom:1px solid rgba(171,157,151,.4); padding-bottom:4px; transition:.3s var(--ease); }
+.hero-links a:hover{ color:var(--or-clair); border-color:var(--or-clair); }
+
+.hero-figure-wrap{
+  position:relative; height:100%; min-height:560px; display:flex; align-items:flex-end; justify-content:center;
+}
+.hero-figure-wrap img{
+  height:112%; max-height:920px; width:auto; object-fit:contain; object-position:bottom;
+  filter:drop-shadow(0 40px 60px rgba(0,0,0,.55));
+  will-change:transform;
+}
+.hero-ring{
+  position:absolute; right:6%; top:12%; width:230px; height:230px; border:1px solid rgba(217,130,47,.35); border-radius:50%;
+}
+
+.scroll-cue{
+  position:absolute; left:50%; bottom:30px; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  font-size:10.5px; letter-spacing:.3em; color:var(--gris); z-index:3;
+}
+.scroll-cue .line{ width:1px; height:34px; background:linear-gradient(var(--or), transparent); animation:scrollcue 1.8s ease-in-out infinite; }
+@keyframes scrollcue{ 0%{ transform:scaleY(0); transform-origin:top; } 50%{ transform:scaleY(1); transform-origin:top; } 51%{ transform-origin:bottom; } 100%{ transform:scaleY(0); transform-origin:bottom; } }
+
+/* ============ MARQUEE ============ */
+.marquee{
+  background:var(--bordeaux-deep); border-top:1px solid rgba(217,130,47,.25); border-bottom:1px solid rgba(217,130,47,.25);
+  overflow:hidden; white-space:nowrap; padding:16px 0;
+}
+.marquee-track{ display:inline-flex; animation:marquee 32s linear infinite; }
+.marquee:hover .marquee-track{ animation-play-state:paused; }
+.marquee span{
+  font-family:var(--font-display); font-style:italic; font-size:16px; color:var(--or-clair);
+  padding:0 28px; letter-spacing:.02em;
+}
+.marquee span::after{ content:"✦"; color:var(--or-deep); margin-left:28px; font-style:normal; font-size:11px; vertical-align:middle; }
+@keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+
+/* ============ SECTION SHELL ============ */
+section{ position:relative; padding:130px 0; }
+.section-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:64px; flex-wrap:wrap; }
+.section-title{ font-size:clamp(1.9rem,3.4vw,2.7rem); color:var(--ivoire); margin-top:18px; max-width:640px; }
+.section-note{ max-width:340px; color:var(--gris); font-size:14.5px; line-height:1.7; padding-bottom:6px; }
+
+/* reveal-on-scroll */
+.reveal{ opacity:0; transform:translateY(34px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal.in-view{ opacity:1; transform:translateY(0); }
+.reveal-delay-1{ transition-delay:.12s; }
+.reveal-delay-2{ transition-delay:.24s; }
+.reveal-delay-3{ transition-delay:.36s; }
+
+/* ============ EDITION (magazine du mois) ============ */
+#edition{ background:var(--noir); }
+.edition-grid{ display:grid; grid-template-columns:.85fr 1.15fr; gap:80px; align-items:center; }
+.mockup-stage{ perspective:1600px; }
+.mockup-frame{
+  position:relative;
+  transform-style:preserve-3d; transition:transform .25s var(--ease);
+}
+.mockup-frame img{ width:100%; height:auto; filter:drop-shadow(0 40px 55px rgba(0,0,0,.6)); }
+.sommaire{ margin:34px 0 40px; }
+.sommaire li{
+  display:flex; gap:22px; align-items:baseline; padding:16px 0;
+  border-bottom:1px solid rgba(246,239,228,.1);
+}
+.sommaire li:first-child{ border-top:1px solid rgba(246,239,228,.1); }
+.sommaire .num{ font-family:var(--font-display); font-style:italic; color:var(--or); font-size:19px; min-width:34px; }
+.sommaire .txt strong{ display:block; font-size:15.5px; color:var(--ivoire); font-weight:600; }
+.sommaire .txt span{ font-size:13px; color:var(--gris); }
+.edition-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+
+/* ============ LEADERS ============ */
+#leaders{ background:linear-gradient(180deg, var(--noir) 0%, var(--noir-soft) 100%); }
+.leaders-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+.leader-card{
+  position:relative; border-radius:6px; overflow:hidden; aspect-ratio:3/4.1;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  transition:transform .5s var(--ease); isolation:isolate;
+}
+.leader-card:hover{ transform:translateY(-8px); }
+.leader-card .bg-tint{ position:absolute; inset:0; z-index:0; }
+.leader-card.tint-bordeaux .bg-tint{ background:radial-gradient(120% 100% at 50% 100%, var(--bordeaux-light), var(--bordeaux-deep) 80%); }
+.leader-card.tint-noir .bg-tint{ background:radial-gradient(120% 100% at 50% 100%, #2a2230, var(--noir) 80%); }
+.leader-card .cutout{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); height:104%; width:auto; max-width:none; z-index:1; }
+.leader-card .photo{ position:absolute; inset:0; z-index:0; width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); }
+.leader-card:hover .photo{ transform:scale(1.05); }
+.leader-card .scrim{ position:absolute; inset:0; z-index:1; background:linear-gradient(0deg, rgba(11,10,13,.92) 8%, rgba(11,10,13,.15) 55%, transparent 80%); }
+.leader-card .info{ position:relative; z-index:2; padding:26px 24px; }
+.leader-card .cat{ font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--or-clair); font-weight:700; margin-bottom:10px; display:block; }
+.leader-card .desc{ font-size:14px; color:var(--ivoire); line-height:1.6; max-width:240px; }
+.leader-card .rule{ width:0; height:1px; background:var(--or); margin:14px 0; transition:width .5s var(--ease); }
+.leader-card:hover .rule{ width:44px; }
+
+/* ============ MODE ============ */
+#mode{ background:var(--noir-soft); }
+.mode-feature{ display:grid; grid-template-columns:1.15fr .85fr; gap:60px; align-items:stretch; margin-bottom:36px; }
+.mode-photo{ position:relative; border-radius:6px; overflow:hidden; min-height:460px; }
+.mode-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top center; }
+.mode-photo .caption{
+  position:absolute; left:0; right:0; bottom:0; z-index:2; padding:26px 28px;
+  background:linear-gradient(0deg, rgba(11,10,13,.85), transparent);
+  font-size:12.5px; letter-spacing:.08em; color:var(--gris);
+}
+.mode-text{ display:flex; flex-direction:column; justify-content:center; }
+.mode-text p{ color:var(--gris); font-size:15.5px; line-height:1.8; margin:22px 0 26px; }
+
+.beauty-duo{ display:grid; grid-template-columns:.62fr 1.38fr; gap:26px; }
+.beauty-card{ position:relative; border-radius:6px; overflow:hidden; background:radial-gradient(130% 120% at 50% 110%, var(--bordeaux) 0%, var(--bordeaux-deep) 85%); min-height:300px; }
+.beauty-card img.cutout{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); height:108%; width:auto; max-width:none; }
+.beauty-side{ position:relative; border-radius:6px; overflow:hidden; background:var(--noir); display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:0; }
+.beauty-side .txt{ padding:34px; }
+.beauty-side .txt .eyebrow{ margin-bottom:14px; }
+.beauty-side .txt p{ color:var(--gris); font-size:14.5px; line-height:1.75; margin-top:14px; }
+.beauty-side img{ height:100%; width:100%; object-fit:cover; }
+
+/* ============ QUOTE ============ */
+#quote{ background:var(--bordeaux-deep); text-align:center; padding:150px 0; overflow:hidden; }
+#quote .mark{
+  font-family:var(--font-display); font-size:180px; color:var(--bordeaux-light); line-height:0; position:relative; top:60px; opacity:.6;
+}
+#quote blockquote{
+  font-family:var(--font-display); font-style:italic; font-size:clamp(1.7rem,3.6vw,3rem);
+  max-width:900px; margin:0 auto; color:var(--ivoire); line-height:1.35;
+}
+#quote cite{ display:block; margin-top:34px; font-style:normal; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--or); }
+
+/* ============ NEWSLETTER ============ */
+#newsletter{
+  background:linear-gradient(120deg, var(--bordeaux) 0%, var(--bordeaux-deep) 70%);
+  border-radius:0;
+}
+.nl-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+.nl-copy p{ color:rgba(246,239,228,.8); font-size:15.5px; margin-top:18px; max-width:420px; line-height:1.7; }
+.nl-form{ display:flex; gap:0; border-bottom:1px solid rgba(246,239,228,.4); padding-bottom:14px; }
+.nl-form input{
+  flex:1; background:transparent; border:none; color:var(--ivoire); font-size:16px; font-family:var(--font-body);
+  padding:10px 4px;
+}
+.nl-form input::placeholder{ color:rgba(246,239,228,.5); }
+.nl-form button{ background:none; border:none; color:var(--or-clair); font-weight:700; font-size:13px; letter-spacing:.08em; text-transform:uppercase; display:flex; align-items:center; gap:8px; }
+.nl-form button:hover{ color:var(--blanc); }
+.nl-note{ margin-top:14px; font-size:12px; color:rgba(246,239,228,.55); }
+.nl-success{ display:none; color:var(--or-clair); font-size:14px; margin-top:14px; }
+.nl-success.show{ display:block; }
+
+/* ============ FOOTER ============ */
+footer{ background:var(--noir); padding-top:90px; border-top:1px solid rgba(217,130,47,.15); }
+.footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.1fr; gap:50px; padding-bottom:70px; }
+.footer-brand{ display:flex; align-items:center; gap:14px; margin-bottom:20px; }
+.footer-brand img{ height:64px; width:auto; }
+.footer-brand .b1{ font-family:var(--font-display); font-style:italic; font-size:21px; }
+.footer-brand .b2{ font-size:10px; letter-spacing:.3em; color:var(--or); }
+.footer-desc{ color:var(--gris); font-size:14px; max-width:290px; line-height:1.7; }
+.footer-col h4{ font-family:var(--font-body); font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--or); margin-bottom:20px; font-weight:700; }
+.footer-col li{ margin-bottom:13px; }
+.footer-col a{ font-size:14px; color:var(--gris); transition:.3s var(--ease); }
+.footer-col a:hover{ color:var(--or-clair); }
+.social-row{ display:flex; gap:14px; margin-top:22px; }
+.social-row a{
+  width:38px; height:38px; border:1px solid rgba(246,239,228,.25); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; transition:.3s var(--ease);
+}
+.social-row a:hover{ border-color:var(--or); background:rgba(217,130,47,.1); }
+.social-row svg{ width:16px; height:16px; fill:var(--ivoire); }
+.footer-bottom{
+  border-top:1px solid rgba(246,239,228,.1); padding:26px 0 40px;
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+  font-size:12.5px; color:var(--gris);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1080px){
+  .edition-grid, .mode-feature, .nl-grid{ grid-template-columns:1fr; }
+  .mode-feature{ gap:36px; }
+  .beauty-duo{ grid-template-columns:1fr; }
+  .footer-grid{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:860px){
+  .hero-inner{ grid-template-columns:1fr; padding-top:calc(var(--header-h) + 30px); text-align:left; }
+  .hero-figure-wrap{ order:-1; min-height:380px; margin-bottom:10px; }
+  .hero-figure-wrap img{ height:auto; width:66%; max-width:320px; }
+  .hero-ring{ display:none; }
+  .nav-links{ position:fixed; inset:0; top:0; background:rgba(11,10,13,.98); backdrop-filter:blur(10px);
+    flex-direction:column; justify-content:center; gap:30px; transform:translateY(-100%); transition:transform .5s var(--ease); }
+  .nav-links.open{ transform:translateY(0); }
+  .nav-links a{ font-size:20px; }
+  .burger{ display:flex; }
+  .leaders-grid{ grid-template-columns:1fr 1fr; }
+  .beauty-side{ grid-template-columns:1fr; }
+  .beauty-side img{ height:220px; }
+  section{ padding:90px 0; }
+  #quote{ padding:100px 0; }
+}
+@media (max-width:560px){
+  .container{ padding:0 22px; }
+  .leaders-grid{ grid-template-columns:1fr; }
+  .footer-grid{ grid-template-columns:1fr; gap:40px; }
+  .section-head{ margin-bottom:44px; }
+  .hero-ctas{ flex-direction:column; align-items:flex-start; }
+  #quote .mark{ font-size:110px; top:36px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.001s !important; animation-iteration-count:1 !important; transition-duration:.001s !important; scroll-behavior:auto !important; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Aller au contenu principal</a>
+
+<!-- PRELOADER -->
+<div id="preloader" aria-hidden="true">
+  <img src="images/logo-badge.png" alt="" width="654" height="251">
+</div>
+
+<!-- HEADER -->
+<header id="site-header">
+  <div class="container header-inner">
+    <a href="#hero" class="brand" aria-label="DJIGUENE Magazine — accueil">
+      <img src="images/logo-badge.png" alt="DJIGUENE Magazine" width="654" height="251">
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#edition" class="nav-link">Édition</a></li>
+        <li><a href="#leaders" class="nav-link">Leaders</a></li>
+        <li><a href="#mode" class="nav-link">Mode</a></li>
+        <li><a href="#newsletter" class="nav-link">Newsletter</a></li>
+        <li><a href="#edition" class="nav-link btn btn-solid nav-cta">Lire l'édition</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section id="hero">
+    <svg class="hero-grain" width="100%" height="100%">
+      <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter>
+      <rect width="100%" height="100%" filter="url(#grain)"/>
+    </svg>
+
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Djiguene Magazine — Édition II</span>
+        <h1 class="hero-title">L'Afrique s'écrit<br>aussi au <span class="accent">féminin.</span></h1>
+        <p class="hero-sub">Mode, leadership, culture et entrepreneuriat : le magazine premium qui célèbre, édition après édition, l'excellence des femmes africaines.</p>
+        <div class="hero-ctas">
+          <a href="#edition" class="btn btn-solid">Découvrir Djiguene</a>
+          <a href="#edition" class="btn btn-ghost">Lire la dernière édition</a>
+        </div>
+        <div class="hero-links">
+          <a href="#edition">Commander la version papier</a>
+          <a href="#edition">Télécharger l'édition numérique</a>
+        </div>
+      </div>
+
+      <div class="hero-figure-wrap reveal">
+        <div class="hero-ring"></div>
+        <img src="images/hero-figure.png" alt="Mannequin en grand boubou brodé crème et fuchsia, mains sur les hanches" id="heroFigure" width="787" height="1141" fetchpriority="high" decoding="async">
+      </div>
+    </div>
+
+    <div class="scroll-cue"><span class="line"></span>DÉFILER</div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Mode</span><span>Femmes Leaders</span><span>Culture</span><span>Business</span><span>Innovation</span><span>Portrait du mois</span>
+      <span>Mode</span><span>Femmes Leaders</span><span>Culture</span><span>Business</span><span>Innovation</span><span>Portrait du mois</span>
+    </div>
+  </div>
+
+  <!-- EDITION DU MOIS -->
+  <section id="edition">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">L'édition du mois</span>
+          <h2 class="section-title">Numéro 04 — Le pouvoir tranquille</h2>
+        </div>
+        <p class="section-note">Chaque édition de Djiguene est pensée comme un objet : une couverture forte, un sommaire exigeant, des voix qui comptent.</p>
+      </div>
+
+      <div class="edition-grid">
+        <div class="mockup-stage reveal">
+          <div class="mockup-frame" id="mockupFrame">
+            <img src="images/magazine-mockup.png" alt="Maquette du magazine Djiguene imprimé, ouvert sur un article mode" width="1139" height="732" loading="lazy" decoding="async">
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-1">
+          <ol class="sommaire">
+            <li><span class="num">04</span><span class="txt"><strong>Édito</strong><span>Le pouvoir au féminin</span></span></li>
+            <li><span class="num">12</span><span class="txt"><strong>Portrait</strong><span>Une créatrice qui redéfinit le luxe africain</span></span></li>
+            <li><span class="num">26</span><span class="txt"><strong>Mode</strong><span>Les tissages qui inspirent les podiums</span></span></li>
+            <li><span class="num">41</span><span class="txt"><strong>Business</strong><span>Diriger sans compromis</span></span></li>
+            <li><span class="num">58</span><span class="txt"><strong>Culture</strong><span>Les voix qui racontent l'Afrique</span></span></li>
+          </ol>
+          <div class="edition-ctas">
+            <a href="#" class="btn btn-solid">Lire</a>
+            <a href="#" class="btn btn-ghost">Télécharger</a>
+            <a href="#" class="btn btn-ghost">Commander</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEMMES LEADERS -->
+  <section id="leaders">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Femmes leaders</span>
+          <h2 class="section-title">Celles qui redéfinissent l'excellence</h2>
+        </div>
+        <p class="section-note">Portraits, interviews et parcours de femmes qui façonnent la mode, la culture et l'entrepreneuriat africains.</p>
+      </div>
+
+      <div class="leaders-grid">
+        <div class="leader-card tint-bordeaux reveal">
+          <div class="bg-tint"></div>
+          <img class="cutout" src="images/heritage-figure.png" alt="Mannequin en parure traditionnelle : bustier en calebasse, jupe en fibres végétales et collier de perles" width="683" height="1100" loading="lazy" decoding="async">
+          <div class="scrim"></div>
+          <div class="info">
+            <span class="cat">Style &amp; Héritage</span>
+            <div class="rule"></div>
+            <p class="desc">Comment la mode traditionnelle inspire la nouvelle génération de créatrices africaines.</p>
+          </div>
+        </div>
+
+        <div class="leader-card tint-noir reveal reveal-delay-1">
+          <div class="bg-tint"></div>
+          <img class="cutout" src="images/portrait-crossed.png" alt="Mannequin en grand boubou crème et fuchsia, main sous le menton, regard assuré" width="671" height="1100" loading="lazy" decoding="async">
+          <div class="scrim"></div>
+          <div class="info">
+            <span class="cat">Audace &amp; Leadership</span>
+            <div class="rule"></div>
+            <p class="desc">Portrait d'une génération qui ose diriger, créer et transformer son secteur.</p>
+          </div>
+        </div>
+
+        <div class="leader-card reveal reveal-delay-2">
+          <img class="photo" src="images/portrait-bronze.jpg" alt="Portrait studio : chignon haut sculpté et maquillage lumineux" width="1125" height="1500" loading="lazy" decoding="async">
+          <div class="scrim"></div>
+          <div class="info">
+            <span class="cat">Beauté &amp; Identité</span>
+            <div class="rule"></div>
+            <p class="desc">Redéfinir les canons de beauté à travers un regard résolument africain.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODE -->
+  <section id="mode">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Mode &amp; style</span>
+          <h2 class="section-title">Créateurs, tendances et haute couture</h2>
+        </div>
+        <p class="section-note">Une expérience éditoriale dédiée à la mode africaine : podiums, accessoires et savoir-faire.</p>
+      </div>
+
+      <div class="mode-feature">
+        <div class="mode-photo reveal">
+          <img src="images/fashion-orange.jpg" alt="Mannequin coiffée d'un afro cuivré, mains encadrant le visage" width="1500" height="1071" loading="lazy" decoding="async">
+          <div class="caption">Séance studio — Djiguene Magazine</div>
+        </div>
+        <div class="mode-text reveal reveal-delay-1">
+          <span class="eyebrow">L'édito</span>
+          <h3 class="section-title" style="font-size:1.9rem;">Le wax réinventé</h3>
+          <p>Des créateurs indépendants aux maisons établies, la mode africaine s'exporte sans jamais renier ses racines. Chaque saison, Djiguene sélectionne les silhouettes, les accessoires et les savoir-faire qui font la couture de demain.</p>
+          <a href="#" class="btn btn-ghost">Lire le dossier mode</a>
+        </div>
+      </div>
+
+      <div class="beauty-duo reveal reveal-delay-2">
+        <div class="beauty-card">
+          <img class="cutout" src="images/beauty-closeup.png" alt="Gros plan beauté : chignon haut et maquillage soigné" width="788" height="950" loading="lazy" decoding="async">
+        </div>
+        <div class="beauty-side">
+          <div class="txt">
+            <span class="eyebrow">L'édito beauté</span>
+            <p>Soins, textures et rituels : notre sélection beauté pensée pour toutes les peaux et toutes les identités.</p>
+            <a href="#" class="btn btn-line" style="margin-top:16px;">Voir la sélection</a>
+          </div>
+          <img src="images/beauty-products.jpg" alt="Macro maquillage : sourcils dessinés, regard souligné et bouche glossy" width="1200" height="822" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section id="quote">
+    <div class="container reveal">
+      <div class="mark" aria-hidden="true">&ldquo;</div>
+      <blockquote>Nous ne racontons pas la mode africaine.<br>Nous la faisons.</blockquote>
+      <cite>L'esprit Djiguene</cite>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter">
+    <div class="container nl-grid">
+      <div class="nl-copy reveal">
+        <span class="eyebrow">Newsletter</span>
+        <h2 class="section-title" style="color:var(--ivoire);">Recevez le meilleur de Djiguene</h2>
+        <p>Portraits, tendances mode et opportunités business, directement dans votre boîte mail — deux fois par mois, jamais plus.</p>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <form class="nl-form" id="nlForm">
+          <input type="email" required placeholder="Votre adresse e-mail" aria-label="Adresse e-mail">
+          <button type="submit">S'abonner →</button>
+        </form>
+        <p class="nl-note">Pas de spam. Désinscription en un clic, à tout moment.</p>
+        <p class="nl-success" id="nlSuccess">Merci — votre inscription est confirmée.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="images/logo-badge.png" alt="Djiguene Magazine" width="654" height="251" loading="lazy" decoding="async">
+        </div>
+        <p class="footer-desc">Le magazine premium dédié à la mode, au leadership féminin, à l'entrepreneuriat et à la culture des femmes africaines.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Djiguene sur Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 3.3.15 4.8 1.7 5 5 .06 1.3.07 1.6.07 4.8s0 3.6-.07 4.9c-.15 3.3-1.7 4.8-5 5-1.3.06-1.6.07-4.9.07s-3.6 0-4.9-.07c-3.3-.15-4.8-1.7-5-5C2 15.6 2 15.3 2 12s0-3.6.07-4.9c.15-3.3 1.7-4.85 5-5C8.4 2.2 8.7 2.2 12 2.2zm0 3.4a6.4 6.4 0 1 0 0 12.8 6.4 6.4 0 0 0 0-12.8zm0 10.6a4.2 4.2 0 1 1 0-8.4 4.2 4.2 0 0 1 0 8.4zm6.6-10.85a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg></a>
+          <a href="#" aria-label="Djiguene sur Threads"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.6 14.6c-.9.9-2.1 1.4-3.6 1.4-3 0-5-1.9-5-5.3 0-3.2 1.9-5.3 4.9-5.3 2.6 0 4.3 1.5 4.6 3.9h-2.1c-.2-1.1-1-1.9-2.4-1.9-1.7 0-2.8 1.3-2.8 3.3 0 2.1 1.1 3.4 2.9 3.4 1.3 0 2.2-.6 2.5-1.7h-2.6v-1.7h4.7c.1 1.6-.3 3-1.1 3.9z"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rubriques</h4>
+        <ul>
+          <li><a href="#leaders">Femmes Leaders</a></li>
+          <li><a href="#mode">Mode &amp; Style</a></li>
+          <li><a href="#edition">Culture</a></li>
+          <li><a href="#edition">Business</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Le magazine</h4>
+        <ul>
+          <li><a href="#edition">Édition du mois</a></li>
+          <li><a href="#edition">Bibliothèque</a></li>
+          <li><a href="#edition">Version papier</a></li>
+          <li><a href="#edition">Version numérique</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Djiguene</h4>
+        <ul>
+          <li><a href="#">À propos</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+          <li><a href="#">Presse</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Djiguene Magazine. Tous droits réservés.</span>
+      <span>Photographie — Sine Studio · Version 2.0</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Preloader */
+  window.addEventListener('load', function(){
+    var pre = document.getElementById('preloader');
+    setTimeout(function(){ pre.classList.add('hidden'); }, 500);
+  });
+
+  /* Header scroll state */
+  var header = document.getElementById('site-header');
+  function onScroll(){
+    if (window.scrollY > 40) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }
+  document.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  /* Mobile nav */
+  var burger = document.getElementById('burger');
+  var navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', function(){
+    var open = navLinks.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('.nav-link').forEach(function(a){
+    a.addEventListener('click', function(){
+      navLinks.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+    });
+  });
+
+  /* Scroll reveal */
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduced){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold:.15 });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in-view'); });
+  }
+
+  /* Hero figure parallax */
+  var heroFigure = document.getElementById('heroFigure');
+  if (heroFigure && !reduced){
+    document.addEventListener('scroll', function(){
+      var y = Math.min(window.scrollY, 600) * 0.08;
+      heroFigure.style.transform = 'translateY(' + y + 'px)';
+    }, { passive:true });
+  }
+
+  /* Magazine mockup tilt */
+  var stage = document.querySelector('.mockup-stage');
+  var frame = document.getElementById('mockupFrame');
+  if (stage && frame && !reduced && window.matchMedia('(pointer:fine)').matches){
+    stage.addEventListener('mousemove', function(e){
+      var r = stage.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      frame.style.transform = 'rotateY(' + (px*10) + 'deg) rotateX(' + (-py*10) + 'deg)';
+    });
+    stage.addEventListener('mouseleave', function(){
+      frame.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    });
+  }
+
+  /* Newsletter form (front-end demo) */
+  var form = document.getElementById('nlForm');
+  var success = document.getElementById('nlSuccess');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.style.display = 'none';
+    success.classList.add('show');
+  });
+})();
+</script>
+</body>
+</html>

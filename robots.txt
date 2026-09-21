@@ -1,0 +1,7 @@
+# DJIGUENE Magazine
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /compte/
+
+Sitemap: https://www.magazinedjiguene.com/sitemap.xml
